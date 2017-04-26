@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html ng-app="MainModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Letter of Demand Lawyer Attendance Detail</title>
+</head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+    <script >
+        angular.module("MainModule",[]).controller("MainController",function ($scope){
+            $scope.message = "Hii to Angular";
+
+            $scope.lawyers=[
+                {"Id":"1","Name":"Janaka Chathuranga","availability":true,"category":"Cards_Non_WOFF"},
+                {"Id":"2","Name":"Mekala Rashmika","availability":false,"category":"Personal_Loan_Non_WOFF"},
+                {"Id":"3","Name":"Yoshani Kavindya","availability":false,"category":"Personal_Non_WOFF"},
+                {"Id":"4","Name":"Hashan Buddhima","availability":true,"category":"Auto_Loan_Non_WOFF"},
+                {"Id":"5","Name":"Ashani Dikowita","availability":false,"category":"Cards_Non_WOFF"},
+                {"Id":"6","Name":"Janaka Chathuranga","availability":true,"category":"Housing_Non_WOFF"}
+
+            ];
+
+
+            $scope.persentLawyers=[
+                {"Name":"Prabath Udayanga"},
+                {"Name":"Dilshani Bandara"},
+                {"Name":"Ranura Ashvin disssanayake"}
+            ];
+
+
+
+
+        });
+    </script>
+
+
+<body>
+<br>
+<div class="container"  >
+ <h1  style="font-family: sans-serif;color: midnightblue"> Letter of Demand Lawyer Attendance </h1>
+</div>
+
+<br><br>
+
+    <div ng-controller="MainController">
+        <div class="container">
+
+            <table class="table table-striped">
+            <tr>
+                <td style=" width: 50%;">
+                    <span>
+            <p><b> Select Lawyer Product Type : &nbsp; &nbsp;
+
+                <select ng-model="searchContent.category" >
+                    <option value="">All product type</option>
+                    <option value="Cards_Non_WOFF">Cards_Non_WOFF</option>
+                    <option value="Personal_Non_WOFF">Personal_Non_WOFF</option>
+                    <option value="Housing_Non_WOFF">Housing_Non_WOFF</option>
+                    <option value="Auto_Loan_Non_WOFF">Auto_Loan_Non_WOFF</option>
+                    <option value="Personal_Loan_Non_WOFF">Personal_Loan_Non_WOFF</option>
+                </select>
+
+           </b> </span>
+            </p>
+                </td>
+
+                <td>
+                    <span>
+                    <p><b> Availability : &nbsp; &nbsp;
+
+                        <select ng-model="searchContent.availability">
+                            <option value="">All</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                      </b>  </span>
+                    </p>
+                </td>
+
+
+
+            </tr>
+            </table>
+        </div>
+
+        <br>
+        <br>
+
+<div class="container">
+        <table ng-model="TableView" class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Name Of the Lawyer</th>
+                <th>Product Type</th>
+                <th>Availability</th>
+                <!--<th>Replacement</th>-->
+                <th>Add to category</th>
+                <th>Remove from current product type</th>
+
+            </tr>
+
+            <tr ng-repeat="lawyer in lawyers | filter:searchContent" >
+                <td> {{lawyer.Id}}</td>
+                <td> {{lawyer.Name}} </td>
+                <td> {{lawyer.category}} </td>
+                <td >
+
+                    <input type="radio"  name="{{lawyer.Name+lawyer.Id}}"  ng-checked="lawyer.availability==true"  >Yes &nbsp; &nbsp;
+                    <input type="radio"  name="{{lawyer.Name+lawyer.Id}}"  ng-checked="lawyer.availability==false"  >No
+
+
+
+
+                </td>
+
+
+                <td>
+                    <select ng-model="OutputData.lawyerName" >
+                        <option value="">Select the Lawyer</option>
+                        <option  ng-repeat="lawyers in persentLawyers ">{{lawyers.Name}}</option>
+                    </select> <br>
+
+
+                    <input type="radio" ng-model="OutputData.add" name="{{lawyer.availability+lawyer.Id}}" >Assign to this product type<br>
+                    <input type="radio" ng-model="OutputData.add" name="{{lawyer.availability+lawyer.Id}}">Assign to both product types<br>
+
+                </td>
+                <td style="text-align: center">
+
+                    <input type="checkbox" ng-model="OutputData.delete" name="{{lawyer.category+lawyer.Id}}"><br>
+                    {{OutputData}}
+                </td>
+        </tr>
+        </table>
+</div>
+
+    </div>
+
+
+
+
+
+
+</body>
+</html>
